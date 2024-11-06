@@ -43,7 +43,7 @@ jobs:
       matrix:
         php: ${{ fromJson(needs.supported-versions-matrix.outputs.version) }}
         composer: [lowest, locked, highest]
-        rabbitmq: ["3", "3.9"]
+        rabbitmq: ["3", "3.9", "4"]
         ssl_test: ["no", "yes", "client"]
     steps:
       - name: Checkout
