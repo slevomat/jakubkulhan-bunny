@@ -18,7 +18,7 @@ use React\Promise;
 
 use function is_array;
 use function stream_context_create;
-use function stream_context_set_option;
+use function stream_context_set_options;
 
 /**
  * Base class for synchronous and asynchronous AMQP/RabbitMQ client.
@@ -218,7 +218,7 @@ abstract class AbstractClient
 
             $context = stream_context_create();
             if (isset($this->options['ssl']) && is_array($this->options['ssl'])) {
-                if (!stream_context_set_option($context, ['ssl' => $this->options['ssl']])) {
+                if (!stream_context_set_options($context, ['ssl' => $this->options['ssl']])) {
                     throw new ClientException("Failed to set SSL-options.");
                 }
                 $streamScheme = 'ssl';
@@ -242,7 +242,7 @@ abstract class AbstractClient
                 $uri .= (strpos($this->options["path"], "/") === 0) ? $this->options["path"] : "/" . $this->options["path"];
             }
 
-            stream_context_set_option(
+            stream_context_set_options(
                 $context, [
                 "socket" => [
                     "tcp_nodelay" => true

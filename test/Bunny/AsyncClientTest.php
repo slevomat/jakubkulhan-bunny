@@ -242,7 +242,7 @@ class AsyncClientTest extends TestCase
         })->then(function () use (&$channel) {
             return $channel->get("get_test", true);
 
-        })->then(function (Message $message1 = null) use (&$channel) {
+        })->then(function (?Message $message1 = null) use (&$channel) {
             $this->assertNotNull($message1);
             $this->assertInstanceOf(Message::class, $message1);
             $this->assertEquals($message1->exchange, "");
@@ -250,7 +250,7 @@ class AsyncClientTest extends TestCase
 
             return $channel->get("get_test", true);
 
-        })->then(function (Message $message2 = null) use (&$channel) {
+        })->then(function (?Message $message2 = null) use (&$channel) {
             $this->assertNull($message2);
 
             return $channel->publish("..", [], "", "get_test");
@@ -258,7 +258,7 @@ class AsyncClientTest extends TestCase
         })->then(function () use (&$channel) {
             return $channel->get("get_test");
 
-        })->then(function (Message $message3 = null) use (&$channel) {
+        })->then(function (?Message $message3 = null) use (&$channel) {
             $this->assertNotNull($message3);
             $this->assertInstanceOf(Message::class, $message3);
             $this->assertEquals($message3->exchange, "");
